@@ -110,7 +110,9 @@ namespace Application_Facturation_V0.Controllers
         // GET: ProduitController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            Produit produit = _p_service.GetById(id);
+            _p_service.Delete(produit);
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: ProduitController/Delete/5
@@ -120,6 +122,8 @@ namespace Application_Facturation_V0.Controllers
         {
             try
             {
+                Produit produit = _p_service.GetById(id);
+                _p_service.Delete(produit);
                 return RedirectToAction(nameof(Index));
             }
             catch

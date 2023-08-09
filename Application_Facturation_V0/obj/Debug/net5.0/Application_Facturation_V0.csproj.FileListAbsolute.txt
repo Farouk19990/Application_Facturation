@@ -142,7 +142,6 @@ C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0
 C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\bin\Debug\net5.0\runtimes\win-arm\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
 C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\bin\Debug\net5.0\runtimes\win-arm64\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
-C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\obj\Debug\net5.0\Razor\Views\Client\Create.cshtml.g.cs
 C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\obj\Debug\net5.0\Razor\Views\Client\Edit.cshtml.g.cs
 C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\obj\Debug\net5.0\Razor\Views\Client\Index.cshtml.g.cs
 C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\obj\Debug\net5.0\Razor\Views\Dashboard\Index.cshtml.g.cs
@@ -153,3 +152,7 @@ C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0
 C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\obj\Debug\net5.0\Razor\Views\Fournisseur\Create_PopUP.cshtml.g.cs
 C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\obj\Debug\net5.0\Razor\Views\Produit\Index.cshtml.g.cs
 C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\obj\Debug\net5.0\Razor\Views\Produit\Create_PopUP.cshtml.g.cs
+C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\obj\Debug\net5.0\Razor\Views\Fournisseur\_EditF.cshtml.g.cs
+C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\obj\Debug\net5.0\Razor\Views\Devis\Index.cshtml.g.cs
+C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\obj\Debug\net5.0\Razor\Views\Devis\_Create.cshtml.g.cs
+C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\obj\Debug\net5.0\Razor\Views\Create.cshtml.g.cs

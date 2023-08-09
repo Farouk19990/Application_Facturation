@@ -74,16 +74,29 @@ namespace Application_Facturation_V0.Controllers
         // POST: FournisseurController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, [Bind("nom", "matricule_fiscale", "identifiant_unique", "address", "telephone", "code_postal", "ville")] Fournisseur f)
         {
-            try
+            Fournisseur fournisseur = _f_service.GetById(id);
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    fournisseur.nom = f.nom;
+                    fournisseur.matricule_fiscale = f.matricule_fiscale;
+                    fournisseur.identifiant_unique = f.identifiant_unique;
+                    fournisseur.address = f.address;
+                    fournisseur.code_postal = f.code_postal;
+                    fournisseur.ville = f.ville;
+                    fournisseur.telephone = f.telephone;
+                    _f_service.Update(fournisseur);
+                    return RedirectToAction(nameof(Index));
+                }
+                catch
+                {
+                    return View();
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
 
         // GET: FournisseurController/Delete/5

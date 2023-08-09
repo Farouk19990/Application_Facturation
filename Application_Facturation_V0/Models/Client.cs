@@ -15,13 +15,12 @@ namespace Application_Facturation_V0.Models
         public string prenom_client { get; set; }
         //public int cin { get; set; }
 
-        public string matricule_fiscale { get; set; }
-        public string identifiant_unique { get; set; }
         public string address_client { get; set; }
         public string email_client { get; set; }
         public int telephone_client { get; set; }
-        [ForeignKey("client_id")]
-        public int client_id { get; set; }
+
+        public string matricule_fiscale { get; set; }
+        public string identifiant_unique { get; set; }
 
     }
 }

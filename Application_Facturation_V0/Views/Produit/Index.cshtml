@@ -92,10 +92,9 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>
+                                        <td class="align-middle text-center text-sm">
                                                 <p class="text-xs font-weight-bold mb-0">@item.prix_unitaire_ht</p>
-
-                                            </td>
+                                                                                            </td>
                                             <td class="align-middle text-center text-sm">
                                                 <span class="badge badge-sm bg-gradient-success">@item.prix_ht</span>
                                             </td>
@@ -105,17 +104,17 @@
                                         <td class="align-middle text-center">
                                             <span class="text-secondary text-xs font-weight-bold">@item.fournisseurP.nom</span>
                                         </td>
-                                            <td class="align-middle">
+                                            <td class="align-middle text-center text-sm">
                                             <!-- 
                                                 <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="("#editModal-"+item.fournisseur_id)" data-url="Url.Action($"EditPartial/{item.fournisseur_id}")">
                                                 <i class="fas fa-edit">  </i>
                                                 </button>
-                                           
+                                            -->
                                                 <form action="Delete" style="display:inline;">
-                                                <button type="submit" class="btn bg-gradient-danger" asp-action="Delete" asp-route-id="item.fournisseur_id">
+                                                <button type="submit" class="btn bg-gradient-danger" asp-action="Delete" asp-route-id="@item.produit_id">
                                                      <i class="fas fa-trash">  </i>
                                             </button></form>
-                                            -->
+                                           
                                             <!--await Html.PartialAsync("EditPartial",item)-->
                                                 <!-- Edit Modal -->
 

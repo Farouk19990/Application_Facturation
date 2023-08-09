@@ -91,7 +91,7 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>
+                                        <td class="align-middle text-center text-sm">
                                                 <p class="text-xs font-weight-bold mb-0">@item.address</p>
 
                                             </td>
@@ -104,7 +104,7 @@
                                         <td class="align-middle text-center">
                                             <span class="text-secondary text-xs font-weight-bold">@item.ville</span>
                                         </td>
-                                            <td class="align-middle">
+                                        <td class="align-middle text-center text-sm">
                                             
                                                 <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="@("#editModal-"+item.fournisseur_id)" data-url="@Url.Action($"EditPartial/{item.fournisseur_id}")">
                                                 <i class="fas fa-edit">  </i>
@@ -115,8 +115,8 @@
                                                      <i class="fas fa-trash">  </i>
                                             </button></form>
 
-                                            <!--await Html.PartialAsync("EditPartial",item)-->
-                                                <!-- Edit Modal -->
+                                            @await Html.PartialAsync("_EditF",item)
+                                            <!-- Edit Modal -->
 
                                             </td>
                                         </tr>

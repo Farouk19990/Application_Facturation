@@ -29,9 +29,6 @@ namespace Application_Facturation_V0.Migrations
                     b.Property<string>("address_client")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("client_id")
-                        .HasColumnType("int");
-
                     b.Property<string>("email_client")
                         .HasColumnType("nvarchar(max)");
 
@@ -65,7 +62,10 @@ namespace Application_Facturation_V0.Migrations
                     b.Property<DateTime>("date_devis")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("produit_id")
+                    b.Property<int>("id_client")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ligne_produit_id")
                         .HasColumnType("int");
 
                     b.Property<double>("total_ht")
@@ -85,7 +85,9 @@ namespace Application_Facturation_V0.Migrations
 
                     b.HasKey("devis_id");
 
-                    b.HasIndex("produit_id");
+                    b.HasIndex("id_client");
+
+                    b.HasIndex("ligne_produit_id");
 
                     b.ToTable("Devis");
                 });
@@ -130,11 +132,11 @@ namespace Application_Facturation_V0.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("client_id")
-                        .HasColumnType("int");
-
                     b.Property<string>("designation")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("devis_id")
+                        .HasColumnType("int");
 
                     b.Property<double>("prix_unitaire_ht")
                         .HasColumnType("float");
@@ -201,13 +203,21 @@ namespace Application_Facturation_V0.Migrations
 
             modelBuilder.Entity("Application_Facturation_V0.Models.Devis", b =>
                 {
-                    b.HasOne("Application_Facturation_V0.Models.Produit", "produit")
+                    b.HasOne("Application_Facturation_V0.Models.Produit", "Devis_produit")
                         .WithMany()
-                        .HasForeignKey("produit_id")
+                        .HasForeignKey("id_client")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("produit");
+                    b.HasOne("Application_Facturation_V0.Models.Client", "Devis_client")
+                        .WithMany()
+                        .HasForeignKey("ligne_produit_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Devis_client");
+
+                    b.Navigation("Devis_produit");
                 });
 
             modelBuilder.Entity("Application_Facturation_V0.Models.LigneProduit", b =>

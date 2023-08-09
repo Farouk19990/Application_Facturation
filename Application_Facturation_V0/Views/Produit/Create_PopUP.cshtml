@@ -24,7 +24,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <div class="input-group">
+                            <div class="input-group" style="display:flex;align-items:center;justify-content:center">
                                 
                                 <label for="Prix" class="form-label col-sm-3">Prix Unitaire</label>
                                 <div class="col-sm-8">
@@ -43,23 +43,35 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <div class="input-group"> <label for="PrixHt">Prix HT  </label> <input asp-for="prix_ht" class="form-control" type="number" placeholder="Prix HT"> </div>
+
+                            <div class="input-group" style="display:flex;align-items:center;justify-content:center"> 
+                                <label for="PrixHt" class="form-label col-sm-3">Prix HT  </label>
+                                <div class="col-sm-8">
+                                    <input asp-for="prix_ht" class="form-control" type="number" placeholder="Prix HT">
+                                    </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <div class="input-group"> <label for="tva">Tva  </label> <input asp-for="tva" class="form-control" type="number" placeholder="TVA"> </div>
+                            <div class="input-group" style="display:flex;align-items:center;justify-content:center">
+                                <label for="tva" class="form-label col-sm-3">Tva  </label>
+                                <div class="col-sm-8">
+                                <input asp-for="tva" class="form-control" type="number" placeholder="TVA"> 
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                   
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="form-group">
-                            
-                            <select asp-for="fournisseur_id" class="form-control">
+                        <div class="form-group" style="display:flex;align-items:center;justify-content:center">
+                            <label for="tva" class="form-label col-sm-3">Tva  </label>
+                            <div class="col-sm-8">
+                            <select asp-for="fournisseur_id" class="form-control" >
                                 <option value="Fournisseur Name" class="form-control">Please select</option>
                                 @foreach (Fournisseur f in fournisseur)
                                 {
@@ -67,6 +79,8 @@
                                     
                                 }
                             </select>
+                            </div>
+
                         </div>
                     </div>
                 </div>

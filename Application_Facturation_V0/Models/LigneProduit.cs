@@ -16,8 +16,8 @@ namespace Application_Facturation_V0.Models
         [ForeignKey("produit_id")]
         public int produit_id { get; set; }
 
-        [ForeignKey("client_id")]
-        public int client_id { get; set; }
+        [ForeignKey("devis_id")]
+        public int devis_id { get; set; }
 
     }
 }

@@ -3,6 +3,7 @@ using Application_Facturation_V0.Models;
 using Application_Facturation_V0.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,7 +45,7 @@ namespace Application_Facturation_V0.Controllers
         // POST: ClientController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind("nom_client","prenom_client","address_client","email_client","telephone_client")] Client c)
+        public ActionResult Create([Bind("nom_client","prenom_client","address_client","email_client","telephone_client", "matricule_fiscale", "identifiant_unique")] Client c)
         {
             Client client = new Client();
             if (ModelState.IsValid)
@@ -56,6 +57,8 @@ namespace Application_Facturation_V0.Controllers
                     client.address_client = c.address_client;
                     client.email_client = c.email_client;
                     client.telephone_client = c.telephone_client;
+                    client.matricule_fiscale = c.matricule_fiscale;
+                    client.identifiant_unique = c.identifiant_unique;
                     _c_service.Add(client);
                     return RedirectToAction(nameof(Index));
                 }
@@ -93,7 +96,7 @@ namespace Application_Facturation_V0.Controllers
         // POST: ClientController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, [Bind("nom_client", "prenom_client", "address_client", "email_client", "telephone_client")] Client c)
+        public ActionResult Edit(int id, [Bind("nom_client", "prenom_client", "address_client", "email_client", "telephone_client", "matricule_fiscale", "identifiant_unique")] Client c)
         {
             Client client = _c_service.GetById(id);
             if (ModelState.IsValid)
@@ -105,6 +108,8 @@ namespace Application_Facturation_V0.Controllers
                     client.address_client = c.address_client;
                     client.email_client = c.email_client;
                     client.telephone_client = c.telephone_client;
+                    client.matricule_fiscale = c.matricule_fiscale;
+                    client.identifiant_unique = c.identifiant_unique;
                     _c_service.Update(client);
                     return RedirectToAction(nameof(Index));
                 }
