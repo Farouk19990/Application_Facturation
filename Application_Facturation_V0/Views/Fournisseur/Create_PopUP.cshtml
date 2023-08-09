@@ -1,0 +1,61 @@
+﻿@model Application_Facturation_V0.Models.Fournisseur
+
+<div class="container mt-5 mb-5 d-flex justify-content-center">
+    <div class="card px-1 py-4">
+        <div class="card-body">
+            <form asp-action="Create">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <!-- <label for="name">Name</label> --> <input asp-for="nom" class="form-control" type="text" placeholder="Nom">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <!-- <label for="name">Name</label> --> <input asp-for="matricule_fiscale" class="form-control" type="text" placeholder="Matricule Fiscale">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="input-group"> <input asp-for="identifiant_unique" class="form-control" type="text" placeholder="Identifiant unique"> </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="input-group"> <input asp-for="address" class="form-control" type="text" placeholder="Address"> </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="input-group"> <input asp-for="telephone" class="form-control" type="text" placeholder="Mobile"> </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="input-group"> <input asp-for="code_postal" class="form-control" type="text" placeholder="Code Postal"> </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="input-group"> <input asp-for="ville" class="form-control" type="text" placeholder="Ville"> </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-info" asp-action="Create"><i class="bi bi-plus-circle"></i> Add </button>
+                <div class=" d-flex flex-column text-center px-5 mt-3 mb-3"> <small class="agree-text">By Booking this appointment you agree to the</small> <a href="#" class="terms">Terms & Conditions</a> </div> <button class="btn btn-primary btn-block confirm-button">Confirm</button>
+            </form>
+        </div>
+    </div>
+</div>
