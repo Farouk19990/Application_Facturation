@@ -26,6 +26,7 @@ namespace Application_Facturation_V0.Controllers
         // GET: DevisController
         public ActionResult Index()
         {
+
             var listP = _p_service.GetAll();
             Devis.lProduit = (List<Produit>)listP;
 

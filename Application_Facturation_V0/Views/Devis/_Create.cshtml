@@ -3,6 +3,13 @@
     List<Client> clients = Devis.lClient;
     List<Produit> produit = Devis.lProduit;
 
+    List<LigneProduit> ligneProduits = Devis.lLigne_Produit;
+    int x = 1;
+    if(ligneProduits!=null){
+        x=ligneProduits.Count;
+    }
+   
+
 }
 <style>
 /* Chrome, Safari, Edge, Opera */
@@ -55,7 +62,7 @@ input[type=number] {
                     
                 </form>
                
-                <table class="table align-items-center mb-0">
+                <table class="table align-items-center mb-0" id="ligneProduitTable">
                     <thead>
                         <tr>
                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Designation</th>
@@ -63,20 +70,21 @@ input[type=number] {
                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Remise</th>
                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prix Unitaire</th>
                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">TVA</th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total</th>
                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
 
                             <th class="text-secondary opacity-7"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        
-                            <tr>
+                     
+                            <tr id="ligneProduit">
                                 <td>
                                     <div class="d-flex px-2 py-1">
                                         
                                         <div class="d-flex flex-column justify-content-center">
 
-                                        <select id="productSelect" onchange="updateInput()" class="form-control">
+                                        <select id="productSelect" onchange="updateInput(this)" class="form-control">
                                             <option class="form-control">Please select product</option>
                                             @foreach (Produit p in produit)
                                             {
@@ -87,19 +95,22 @@ input[type=number] {
                                     </div>
                                 </td>
                                 <td class="align-middle text-center text-sm">
-                                <input type="number" placeholder="QTE" class="form-control">
+                                <input type="number" placeholder="QTE" id="qteInput" onchange="updateQte(this)" class="form-control">
 
                                 </td>
                                 <td class="align-middle text-center text-sm">
-                                <input type="number" placeholder="Remise" class="form-control">
+                                <input type="number" placeholder="Remise" id="remiseInput" onchange="updateRemise(this)" class="form-control">
 
                                 </td>
                                 <td class="align-middle text-center">
-                                    <input type="number" id="productPriceInput" class="form-control">
+                                <input type="number" id="productPriceInput" onchange="updateRemise(this)" class="form-control">
                                     
                                 </td>
+                            <td class="align-middle text-center">
+                                <input type="number" placeholder="TVA" id="TVAInput" onchange="updateTVA(this)" class="form-control">
+                            </td>
                                 <td class="align-middle text-center">
-                                <input type="number" placeholder="TVA  " class="form-control">
+                                <input type="number" placeholder="Total" id="totalInput" class="form-control">
                                 </td>
                                 <td class="align-middle text-center text-sm">
                                     <!--
@@ -107,21 +118,91 @@ input[type=number] {
                                         <i class="fas fa-edit">  </i>
                                         </button>
                                     -->
-                                    <form action="Delete" style="display:inline;margin-top:5px">
-                                    <button type="submit" class="btn" style="margin-top:8px;height:40px">
-                                        <img src="../assets/flaticon/remove.png">
+                                    
+                                    <button type="submit" onclick="deleteRow(this)" class="btn" style="margin-top:8px;height:40px">
+                                        <img src="../assets/flaticon/delete.png">
                                             </button>
-                                    </form>
+                                  
 
                                     <!--await Html.PartialAsync("EditPartial",item)-->
                                     <!-- Edit Modal -->
 
                                 </td>
                             </tr>
-                        
-
+                            
+                           
+                            <!--
+                            <tr>
+                                <td class="align-middle text-center" colspan="5"></td>
+                                <td class="align-middle text-center">Total HT</td>
+                                <td class="align-middle text-center">
+                                    <input type="number" placeholder="Total HT" class="form-control">
+                                </td>
+                            </tr>
+                        <tr>
+                            <td class="align-middle text-center" colspan="5"></td>
+                            <td class="align-middle text-center">Total TVA</td>
+                            <td class="align-middle text-center">
+                                <div style="width:100px"> <input type="number" placeholder="Total TVA" class="form-control"></div>
+                            </td>
+                        </tr>
+                        -->
                     </tbody>
                 </table>
+                <button onclick="add()" class="btn" style="margin-top:8px;height:40px">
+                    <img src="../assets/flaticon/plus.png">
+                </button>
+                <div class="row" >
+                    <div class="col-sm-12">
+                        <div class="form-group" style="margin-top:10px;margin-left:400px;display:flex;align-items:center;justify-content:center">
+                            <label for="tva" style="margin-top:5px" class="form-label col-sm-3">Total HT  </label>
+                            <div class="col-sm-4">
+                                <input type="number" placeholder="Total HT" id="totalHT" class="form-control" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group" style="margin-left:400px;display:flex;align-items:center;justify-content:center">
+                            <label for="tva" style="margin-top:5px" class="form-label col-sm-3">Total Remise</label>
+                            <div class="col-sm-4">
+                                <input type="number" placeholder="Total Remise" id="totalRemise" class="form-control" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group" style="margin-left:400px;display:flex;align-items:center;justify-content:center">
+                            <label for="tva" style="margin-top:5px" class="form-label col-sm-3">Total HT Avant Remise</label>
+                            <div class="col-sm-4">
+                                <input type="number" placeholder="Total HT Avant Remise" id="totalHtAvR" class="form-control" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group" style="margin-left:400px;display:flex;align-items:center;justify-content:center">
+                            <label for="tva" style="margin-top:5px" class="form-label col-sm-3">Total TVA</label>
+                            <div class="col-sm-4">
+                                <input type="number" placeholder="Total TVA" id="totalTVA" class="form-control" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group" style="margin-left:400px;display:flex;align-items:center;justify-content:center">
+                            <label for="tva" style="margin-top:5px" class="form-label col-sm-3">Total TTC</label>
+                            <div class="col-sm-4">
+                                <input type="number" placeholder="Total TTC" id="totalTTC" class="form-control" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+           
                 <!--
                 <div class="row">
                 <div class="form-floating">
@@ -157,17 +238,110 @@ input[type=number] {
                   
              
                 <button type="submit" class="btn btn-info" asp-action="Create"><i class="bi bi-plus-circle"></i> Add </button>
-                <div class=" d-flex flex-column text-center px-5 mt-3 mb-3"> <small class="agree-text">By Booking this appointment you agree to the</small> <a href="#" class="terms">Terms & Conditions</a> </div> <button class="btn btn-primary btn-block confirm-button">Confirm</button>
+               <button class="btn btn-primary btn-block confirm-button">Confirm</button>
             </form>
         </div>
     </div>
 </div>
 
 <script>
-    function updateInput() {
+    function DevisInputUpdate(){
+
+        var totalInputs = document.querySelectorAll('#totalInput');
+        var totalHT=0;
+        totalInputs.forEach(function (input) {
+            totalHT += parseFloat(input.value);
+        });
+        document.getElementById('totalHT').value = totalHT;
+    }
+
+    function updateInput(selectElement) {
+        var selectedOption = selectElement.options[selectElement.selectedIndex];
+
+        var row = selectElement.closest('tr'); 
+        var productPrice = selectedOption.getAttribute('data-price');    
+        row.querySelector('#productPriceInput').value = productPrice;
+
+        row.querySelector('#qteInput').value = 1;
+
+        var totalInput = row.querySelector('#totalInput');
+        totalInput.value = productPrice;
+        DevisInputUpdate();
+
+
+        /*
         var productSelect = document.getElementById('productSelect');
         var selectedOption = productSelect.options[productSelect.selectedIndex];
         var productPrice = selectedOption.getAttribute('data-price');
+        
         document.getElementById('productPriceInput').value = productPrice;
+        document.getElementById('qteInput').value = 1;
+            <DEVIS TOTAL>
+        document.getElementById('totalInput').value = productPrice;
+        document.getElementById('totalHT').value = productPrice;
+        document.getElementById('totalTTC').value = productPrice;
+        document.getElementById('totalRemise').value = 0;
+        document.getElementById('totalTVA').value = 0;
+        document.getElementById('totalHtAvR').value = productPrice;*/
+    }
+    function qteF(selectElement) {
+        var row = selectElement.closest('tr');
+
+        var prix = parseFloat( row.querySelector('#productPriceInput').value);
+        var qte = parseFloat(row.querySelector('#qteInput').value);
+
+        row.querySelector('#totalInput').value = prix * qte;
+        //document.getElementById('totalHT').value = prix * qte;
+
+    }
+
+    function updateQte(selectElement) {
+        var row = selectElement.closest('tr'); 
+        row.querySelector('#remiseInput').value = 0;
+        qteF(selectElement);
+    }
+    function updateRemise(selectElement) {
+        var row = selectElement.closest('tr');
+
+        qteF(selectElement);
+        var total = row.querySelector('#totalInput').value;
+        var remise = row.querySelector('#remiseInput').value;
+        var x=100-remise;
+        /*
+        document.getElementById('totalHtAvR').value=total;
+        var r = document.getElementById('totalRemise').value =total-( (total * x) / 100);
+
+        document.getElementById('totalHT').value = (total * x) / 100;
+        */
+        row.querySelector('#totalInput').value = (total * x)/100;
+    }
+    function updateTVA(selectElement) {
+        var row = selectElement.closest('tr');
+
+        updateRemise(selectElement);
+        var total = row.querySelector('#totalInput').value;
+        var tva = row.querySelector('#TVAInput').value;
+        var x = 100 - tva;
+        row.querySelector('#totalInput').value = total * ((tva / 100) + 1);
+        /*
+        document.getElementById('totalTVA').value = total - ((total * x) / 100);
+       
+        document.getElementById('totalTTC').value = total*((tva/100)+1)*/
+
+    }
+    function clearInputDevis(){
+        row.querySelector('#remiseInput').value = 0;
+        document.getElementById('totalTVA').value =0;
+        document.getElementById('totalInput').value = 0;
+        document.getElementById('totalTTC').value =0;
+    }
+    function add(){
+        var newRow = $("#ligneProduitTable tbody tr").first().clone();
+        newRow.find("input").val(""); // Clear input values
+        newRow.appendTo("#ligneProduitTable tbody");
+    }
+    function deleteRow(selected){
+        var row = selected.closest('tr');
+        row.parentNode.removeChild(row);
     }
 </script>

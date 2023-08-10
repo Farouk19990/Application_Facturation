@@ -26,6 +26,12 @@ namespace Application_Facturation_V0.Models
 
         public static List<Client> lClient;
         public static List<Produit> lProduit;
+        public static List<LigneProduit> lLigne_Produit;
+
+        public static void add(LigneProduit lP)
+        {
+            lLigne_Produit.Add(lP);
+        }
 
 
 
