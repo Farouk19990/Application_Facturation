@@ -34,6 +34,12 @@ namespace Application_Facturation_V0
             services.AddScoped<IFournisseurService, FournisseurService>();
             services.AddScoped<IProduitService, ProduitService>();
             services.AddScoped<IDevisService, DevisService>();
+            services.AddScoped<ILigneProduitService, LigneProduitService>();
+            services.AddScoped<IFactureService, FactureService>();
+            services.AddScoped<ILigneFactureService, LigneFactureService>();
+
+            services.AddScoped<IBonLivraisonService, BonLivraisonService>();
+            services.AddScoped<ILigneBL_Service, LigneBL_Service>();
 
             services.AddControllersWithViews();
         }

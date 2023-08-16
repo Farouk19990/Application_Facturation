@@ -1,0 +1,463 @@
+﻿@model Application_Facturation_V0.Models.Facture;
+@{
+    List<Client> clients = Facture.lClient;
+    List<Produit> produit = Facture.lProduit;
+
+    List<LigneFacture> ligneProduits = Facture.lLigne_Facture;
+    int x = 1;
+    if (ligneProduits != null)
+    {
+        x = ligneProduits.Count;
+    }
+
+
+}
+<style>
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+</style>
+
+<div class="container d-flex justify-content-center">
+    <div class="card px-1 py-4">
+        <div class="card-body">
+            <form>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group" style="display:flex;align-items:center;justify-content:center">
+                            <label for="tva" class="form-label col-sm-3">Devis Date  </label>
+                            <div class="col-sm-8">
+                                <input asp-for="date_facture" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="form-control" type="date">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group" style="display:flex;align-items:center;justify-content:center">
+                            <label for="tva" class="form-label col-sm-3">Client  </label>
+                            <div class="col-sm-8">
+                                <select id="idClient" class="form-control">
+                                    <option value="Fournisseur Name" class="form-control">Please select client</option>
+                                    @foreach (Client c in clients)
+                                    {
+                                        <option value="@c.id_client">@c.nom_client @c.prenom_client</option>
+
+                                    }
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <table class="table align-items-center mb-0" id="ligneProduitTable">
+                    <thead>
+                        <tr>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Designation</th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Qte</th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Remise (%)</th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prix Unitaire</th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">TVA (%)</th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total TTC</th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
+
+                            <th class="text-secondary opacity-7"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr id="ligneProduit">
+                            <td>
+                                <div class="d-flex px-2 py-1">
+
+                                    <div class="d-flex flex-column justify-content-center">
+
+                                        <select id="productSelect" asp-for="date_facture" name="select" onchange="updateInput(this)" class="form-control">
+                                            <option class="form-control">Please select product</option>
+                                            @foreach (Produit p in produit)
+                                            {
+                                                <option value="@p.produit_id" name="prod_id" data-price="@p.prix_unitaire_ht">@p.designation</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="align-middle text-center text-sm">
+
+                                <input type="number" name="qte" placeholder="QTE" id="qteInput" onchange="calcLigne(this)" class="form-control">
+
+                            </td>
+                            <td class="align-middle text-center text-sm">
+                                <input type="number" name="remise" placeholder="Remise" id="remiseInput" onchange="calcLigne(this)" class="form-control">
+
+                            </td>
+                            <td class="align-middle text-center">
+                                <input type="number" name="prixUnitaire" id="productPriceInput" onchange="calcLigne(this)" class="form-control">
+
+                            </td>
+                            <td class="align-middle text-center">
+                                <input type="number" name="TVA" placeholder="TVA" id="TVAInput" onchange="calcLigne(this)" class="form-control">
+                            </td>
+                            <td class="align-middle text-center">
+                                <input type="number" placeholder="Total" id="totalInput" class="form-control">
+                            </td>
+                            <td class="align-middle text-center text-sm">
+                                <!--
+                                    <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="("#editModal-"+item.fournisseur_id)" data-url="Url.Action($"EditPartial/{item.fournisseur_id}")">
+                                    <i class="fas fa-edit">  </i>
+                                    </button>
+                                -->
+
+                                <button type="submit" onclick="deleteRow(this)" class="btn" style="margin-top:8px;height:40px">
+                                    <img src="../assets/flaticon/delete.png">
+                                </button>
+
+
+                                <!--await Html.PartialAsync("EditPartial",item)-->
+                                <!-- Edit Modal -->
+
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+                <input onclick="add()" value="Ajoute Ligne" class="btn" style="margin-left:15px;">
+         
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group" style="margin-top:10px;margin-left:400px;display:flex;align-items:center;justify-content:center">
+                            <label for="tva" style="margin-top:5px" class="form-label col-sm-3">Total HT  </label>
+                            <div class="col-sm-4">
+                                
+                                <div class="input-group">
+                                    <input asp-for="total_ht" type="number" placeholder="Total HT" id="totalHT" class="form-control" readonly>
+                                    <span class="input-group-text">DT</span>
+                                </div>
+                            </div>
+                         
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group" style="margin-left:400px;display:flex;align-items:center;justify-content:center">
+                            <label for="tva" style="margin-top:5px" class="form-label col-sm-3">Total Remise</label>
+                            <div class="col-sm-4">
+                                
+                                <div class="input-group">
+                                    <input asp-for="total_remise" type="number" placeholder="Total Remise" id="totalRemise" class="form-control" readonly>
+                                    <span class="input-group-text">DT</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group" style="margin-left:400px;display:flex;align-items:center;justify-content:center">
+                            <label for="tva" style="margin-top:5px" class="form-label col-sm-3">Total HT Avant Remise</label>
+                            <div class="col-sm-4">
+                               
+                                  <div class="input-group">
+                                    <input asp-for="total_ht_avant_remis" type="number" placeholder="Total HT Avant Remise" id="totalHtAvR" class="form-control" readonly>
+                                    <span class="input-group-text">DT</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- ############ INPUT FACTURE ############-->
+                    <div class="col-sm-6">
+                        <div class="form-group" style="display:flex;align-items:center;justify-content:center">
+                            <label for="tva" style="margin-top:5px" class="form-label col-sm-3">Timbre Fiscale  </label>
+                            <div class="col-sm-4">
+                                
+                                 <div class="input-group">
+                                    <input type="number" placeholder="TimbreF" id="TimbreF" value="1" class="form-control" readonly>
+                                    <span class="input-group-text">DT</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ############ END INPUT FACTURE ############-->
+                    <div class="col-sm-6">
+                        <div class="form-group" style="margin-left:15px;display:flex;align-items:center;justify-content:center">
+                            <label for="tva" style="margin-top:5px" class="form-label col-sm-3">Total TVA</label>
+                            <div class="col-sm-4">
+                                 
+                                 <div class="input-group">
+                                    <input asp-for="total_tva" type="number" placeholder="Total TVA" id="totalTVA" class="form-control" readonly>
+                                    <span class="input-group-text">DT</span>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- ############ INPUT FACTURE ############-->
+                    <div class="col-sm-6">
+                        <div class="form-group" style="display:flex;align-items:center;justify-content:center">
+                            <label for="tva" style="margin-top:5px" class="form-label col-sm-3">Frais  </label>
+                            <div class="col-sm-4">
+                               
+                                 <div class="input-group">
+                                    <input type="number" onchange="calcFacture()" placeholder="Frais" id="Frais" class="form-control">
+                                    <span class="input-group-text">DT</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ############ END INPUT FACTURE ############-->
+                    <div class="col-sm-6">
+                        <div class="form-group" style="margin-left:15px; display:flex;align-items:center;justify-content:center">
+                            <label for="tva" style="margin-top:5px" class="form-label col-sm-3">Total TTC</label>
+                            <div class="col-sm-4">
+                                   <div class="input-group">
+                                    <input asp-for="total_ttc" type="number" placeholder="Total TTC" id="totalTTC" class="form-control" readonly>
+                                    <span class="input-group-text">DT</span>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--
+                <div class="row">
+                <div class="form-floating">
+                        <input type="number" class="form-label col-sm-3" id="floatingPassword" placeholder="Password">
+                        <label class="form-control col-sm-8" for="floatingPassword">Password</label>
+                </div>
+                </div>-->
+                <!--
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+
+                            <div class="input-group" style="display:flex;align-items:center;justify-content:center">
+                                <label for="PrixHt" class="form-label col-sm-3">Prix HT  </label>
+                                <div class="col-sm-8">
+                                    <input asp-for="prix_ht" class="form-control" type="number" placeholder="Prix HT">
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="input-group" style="display:flex;align-items:center;justify-content:center">
+                                <label for="tva" class="form-label col-sm-3">Tva  </label>
+                                <div class="col-sm-8">
+                                <input asp-for="tva" class="form-control" type="number" placeholder="TVA">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+
+
+                <button type="submit" class="btn btn-info" onclick="ajoutDB()"><i class="bi bi-plus-circle"></i> Add </button>
+
+                <button class="btn btn-primary btn-block confirm-button">Confirm</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function ajoutDB() {
+        var table = document.getElementById("ligneProduitTable");
+        var productId = document.querySelectorAll('#productSelect');
+        var ligneLP = [];
+        var listPID = [];
+
+        //DEVIS INPUTS
+        var clientId = document.querySelectorAll('#idClient');
+        var clientIds = [];
+        clientId.forEach(function (input) {
+            clientIds.push(input.value);
+        });
+        var devis = {};
+        console.log("clientid ", clientIds);
+        var totalRe = document.getElementById('totalRemise');
+        var totalHTA = document.getElementById('totalHtAvR');
+        var totalTTC = document.getElementById('totalTTC')
+        var totalTVA = document.getElementById('totalTVA');
+        var totalHT = document.getElementById('totalHT');
+        var tF = document.getElementById('TimbreF');
+        var frais = document.getElementById('Frais');
+        var devisObj = { "Frais":frais.value ,"client_id": clientIds[0], "totalHT": totalHT.value, "totalRemise": totalRe.value, "totalHTA": totalHTA.value, "totalTTC": totalTTC.value, "totalTVA": totalTVA.value };
+        console.log("obj ", devisObj);
+        ligneLP.push(devisObj)
+        //END DEVIS
+        productId.forEach(function (input) {
+            listPID.push(input.value);
+        });
+
+        var rows = table.getElementsByTagName("tr");
+        console.log("prod  ", listPID);
+
+        console.log("rows  ", rows.length);
+
+        var pid = 0;
+
+        for (var i = 0; i < rows.length; i++) {
+            var inputs = rows[i].getElementsByTagName("input");
+            var rowObj = {};
+            for (var j = 0; j < inputs.length; j++) {
+                var inputValue = inputs[j].value;
+                var inputName = inputs[j].getAttribute("name");
+                rowObj[inputName] = inputValue;
+                var x = 1;
+            }
+            if (x == 1) {
+                rowObj["ProdID"] = listPID[pid];
+                ligneLP.push(rowObj);
+                pid++;
+            }
+
+        }
+        console.log("list LP: " + JSON.stringify(ligneLP));
+        console.log("here");
+        if (ligneLP.length > 0) {
+            console.log("THEN here");
+           
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("ReceiveData", "Facture")',
+                data: JSON.stringify(ligneLP),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                async: false,
+                cache: false,
+                success: function (response) {
+                    if (response) {
+
+                        console.log("Data sent successfully");
+                        window.location.href = '@Url.Action("Index", "Facture")';
+
+                    } else {
+                        console.log("Error sending data");
+                    }
+                },
+                error: function () {
+                    console.log("Error sending data");
+                }
+            });
+            
+            console.log("BYEE");
+
+        }
+      }
+
+   
+    //####### NEW ########
+    function updateInput(selectElement) {
+        var selectedOption = selectElement.options[selectElement.selectedIndex];
+
+        var row = selectElement.closest('tr');
+        var productPrice = selectedOption.getAttribute('data-price');
+        row.querySelector('#productPriceInput').value = productPrice;
+
+        row.querySelector('#qteInput').value = 1;
+        row.querySelector('#remiseInput').value = 0;
+        row.querySelector('#TVAInput').value = 0;
+
+        var totalInput = row.querySelector('#totalInput');
+        totalInput.value = productPrice;
+        calcLigne(selectElement);
+    }
+    //####### NEW ########
+    function calcLigne(selectElement){
+        var row = selectElement.closest('tr');
+
+        var prix = parseFloat(row.querySelector('#productPriceInput').value);
+        var qte = parseFloat(row.querySelector('#qteInput').value);
+
+        var remise = row.querySelector('#remiseInput').value || 0;
+        var tva = row.querySelector('#TVAInput').value || 0;
+
+        row.querySelector('#totalInput').value  =prix * qte * (1 - remise / 100) * (1 + tva / 100);
+        
+        console.log("TOTAL : ",total);
+        //document.getElementById('totalTTC').value=total;
+        calcFacture();
+    }
+
+    function calcFacture(){
+        const rows = document.querySelectorAll('#ligneProduitTable tbody tr');
+        let totalTTC = 0;
+        let totalTVA = 0;
+        let totalRemise = 0;
+        let totalHT = 0;
+
+        rows.forEach(row => {
+            const rowTotalInput = row.querySelector('#totalInput');
+            var prix = parseFloat(row.querySelector('#productPriceInput').value);
+            var qte = parseFloat(row.querySelector('#qteInput').value);
+            var remise = row.querySelector('#remiseInput').value || 0;
+            var tva = row.querySelector('#TVAInput').value || 0;
+            if (rowTotalInput) {
+                totalTTC += parseFloat(rowTotalInput.value);
+                
+                totalRemise += (prix*qte) * parseFloat(row.querySelector('#remiseInput').value) / 100;
+                if(tva!=0){
+                    totalHT += ((prix * qte) * (1 - remise / 100)) ;
+                }
+                if(tva==0){
+                    totalHT += ((prix * qte) * (1 - remise / 100)) ;
+                }
+               
+                if(remise!=0){
+                    totalTVA += ((prix * qte) * (1-remise/100)) * parseFloat(row.querySelector('#TVAInput').value) / 100;
+                }else{
+                    totalTVA += (prix * qte) * parseFloat(row.querySelector('#TVAInput').value) / 100;
+
+                }
+            }
+        });
+        console.log("totalHT  ",totalHT," totalRemise ",totalRemise,"totalTva ",totalTVA,"totalTTC ",totalTTC);
+       
+        var tF = document.getElementById('TimbreF');
+        var frais = document.getElementById('Frais');
+
+        var tFValue = parseFloat(tF.value) || 0;
+        var fraisValue = parseFloat(frais.value) || 0;
+
+        var newTotalTTC = totalTTC + tFValue + fraisValue;
+
+        document.getElementById('totalHT').value = totalHT;
+        document.getElementById('totalTVA').value =totalTVA;
+        document.getElementById('totalRemise').value =totalRemise;
+        document.getElementById('totalTTC').value = newTotalTTC;
+        document.getElementById('totalHtAvR').value = totalTTC+totalRemise;
+       
+    }
+
+    function deleteRow(selected) {
+        var row = selected.closest('tr');
+        row.parentNode.removeChild(row);
+       calcFacture()
+    }
+
+    function add() {
+        var newRow = $("#ligneProduitTable tbody tr").first().clone();
+        newRow.find("input").val(""); // Clear input values
+        newRow.appendTo("#ligneProduitTable tbody");
+    }
+</script>

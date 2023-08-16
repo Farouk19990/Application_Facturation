@@ -19,6 +19,49 @@ namespace Application_Facturation_V0.Migrations
                 .HasAnnotation("ProductVersion", "5.0.6")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Application_Facturation_V0.Models.BonLivraison", b =>
+                {
+                    b.Property<int>("bonLivraison_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("bL_clientid_client")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("bL_produitproduit_id")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("date_bL")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("id_client")
+                        .HasColumnType("int");
+
+                    b.Property<double>("total_ht")
+                        .HasColumnType("float");
+
+                    b.Property<double>("total_ht_avant_remis")
+                        .HasColumnType("float");
+
+                    b.Property<double>("total_remise")
+                        .HasColumnType("float");
+
+                    b.Property<double>("total_ttc")
+                        .HasColumnType("float");
+
+                    b.Property<double>("total_tva")
+                        .HasColumnType("float");
+
+                    b.HasKey("bonLivraison_id");
+
+                    b.HasIndex("bL_clientid_client");
+
+                    b.HasIndex("bL_produitproduit_id");
+
+                    b.ToTable("bonLivraisons");
+                });
+
             modelBuilder.Entity("Application_Facturation_V0.Models.Client", b =>
                 {
                     b.Property<int>("id_client")
@@ -59,13 +102,16 @@ namespace Application_Facturation_V0.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("Devis_clientid_client")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Devis_produitproduit_id")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("date_devis")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("id_client")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ligne_produit_id")
                         .HasColumnType("int");
 
                     b.Property<double>("total_ht")
@@ -85,11 +131,60 @@ namespace Application_Facturation_V0.Migrations
 
                     b.HasKey("devis_id");
 
-                    b.HasIndex("id_client");
+                    b.HasIndex("Devis_clientid_client");
 
-                    b.HasIndex("ligne_produit_id");
+                    b.HasIndex("Devis_produitproduit_id");
 
                     b.ToTable("Devis");
+                });
+
+            modelBuilder.Entity("Application_Facturation_V0.Models.Facture", b =>
+                {
+                    b.Property<int>("facture_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("date_facture")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("facture_clientid_client")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("facture_produitproduit_id")
+                        .HasColumnType("int");
+
+                    b.Property<double>("frais")
+                        .HasColumnType("float");
+
+                    b.Property<int>("id_client")
+                        .HasColumnType("int");
+
+                    b.Property<double>("timbre_fiscale")
+                        .HasColumnType("float");
+
+                    b.Property<double>("total_ht")
+                        .HasColumnType("float");
+
+                    b.Property<double>("total_ht_avant_remis")
+                        .HasColumnType("float");
+
+                    b.Property<double>("total_remise")
+                        .HasColumnType("float");
+
+                    b.Property<double>("total_ttc")
+                        .HasColumnType("float");
+
+                    b.Property<double>("total_tva")
+                        .HasColumnType("float");
+
+                    b.HasKey("facture_id");
+
+                    b.HasIndex("facture_clientid_client");
+
+                    b.HasIndex("facture_produitproduit_id");
+
+                    b.ToTable("Facture");
                 });
 
             modelBuilder.Entity("Application_Facturation_V0.Models.Fournisseur", b =>
@@ -125,15 +220,72 @@ namespace Application_Facturation_V0.Migrations
                     b.ToTable("Fournisseurs");
                 });
 
+            modelBuilder.Entity("Application_Facturation_V0.Models.LigneBL", b =>
+                {
+                    b.Property<int>("ligne_bonL_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("bonLivraison_id")
+                        .HasColumnType("int");
+
+                    b.Property<double>("prix_unitaire_ht")
+                        .HasColumnType("float");
+
+                    b.Property<int>("produit_id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("qte")
+                        .HasColumnType("int");
+
+                    b.Property<double>("remise")
+                        .HasColumnType("float");
+
+                    b.Property<int>("tva")
+                        .HasColumnType("int");
+
+                    b.HasKey("ligne_bonL_id");
+
+                    b.ToTable("LignesBL");
+                });
+
+            modelBuilder.Entity("Application_Facturation_V0.Models.LigneFacture", b =>
+                {
+                    b.Property<int>("ligne_facture_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("facture_id")
+                        .HasColumnType("int");
+
+                    b.Property<double>("prix_unitaire_ht")
+                        .HasColumnType("float");
+
+                    b.Property<int>("produit_id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("qte")
+                        .HasColumnType("int");
+
+                    b.Property<double>("remise")
+                        .HasColumnType("float");
+
+                    b.Property<int>("tva")
+                        .HasColumnType("int");
+
+                    b.HasKey("ligne_facture_id");
+
+                    b.ToTable("LigneFactures");
+                });
+
             modelBuilder.Entity("Application_Facturation_V0.Models.LigneProduit", b =>
                 {
                     b.Property<int>("ligne_produit_id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("designation")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("devis_id")
                         .HasColumnType("int");
@@ -155,9 +307,6 @@ namespace Application_Facturation_V0.Migrations
 
                     b.Property<int>("tva")
                         .HasColumnType("int");
-
-                    b.Property<string>("unite")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ligne_produit_id");
 
@@ -201,23 +350,49 @@ namespace Application_Facturation_V0.Migrations
                     b.ToTable("Produit");
                 });
 
+            modelBuilder.Entity("Application_Facturation_V0.Models.BonLivraison", b =>
+                {
+                    b.HasOne("Application_Facturation_V0.Models.Client", "bL_client")
+                        .WithMany()
+                        .HasForeignKey("bL_clientid_client");
+
+                    b.HasOne("Application_Facturation_V0.Models.Produit", "bL_produit")
+                        .WithMany()
+                        .HasForeignKey("bL_produitproduit_id");
+
+                    b.Navigation("bL_client");
+
+                    b.Navigation("bL_produit");
+                });
+
             modelBuilder.Entity("Application_Facturation_V0.Models.Devis", b =>
                 {
-                    b.HasOne("Application_Facturation_V0.Models.Produit", "Devis_produit")
-                        .WithMany()
-                        .HasForeignKey("id_client")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Application_Facturation_V0.Models.Client", "Devis_client")
                         .WithMany()
-                        .HasForeignKey("ligne_produit_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Devis_clientid_client");
+
+                    b.HasOne("Application_Facturation_V0.Models.Produit", "Devis_produit")
+                        .WithMany()
+                        .HasForeignKey("Devis_produitproduit_id");
 
                     b.Navigation("Devis_client");
 
                     b.Navigation("Devis_produit");
+                });
+
+            modelBuilder.Entity("Application_Facturation_V0.Models.Facture", b =>
+                {
+                    b.HasOne("Application_Facturation_V0.Models.Client", "facture_client")
+                        .WithMany()
+                        .HasForeignKey("facture_clientid_client");
+
+                    b.HasOne("Application_Facturation_V0.Models.Produit", "facture_produit")
+                        .WithMany()
+                        .HasForeignKey("facture_produitproduit_id");
+
+                    b.Navigation("facture_client");
+
+                    b.Navigation("facture_produit");
                 });
 
             modelBuilder.Entity("Application_Facturation_V0.Models.LigneProduit", b =>

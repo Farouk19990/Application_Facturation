@@ -16,24 +16,16 @@ namespace Application_Facturation_V0.Models
         public double total_ht { get; set; }
         public double total_tva { get; set; }
         public double total_ttc { get; set; }
-        public int ligne_produit_id { get; set; }
-        [ForeignKey("ligne_produit_id")]
-
         public Client Devis_client { get; set; }
-        public int id_client { get; set; }
-        [ForeignKey("id_client")]
+
+        
         public Produit Devis_produit { get; set; }
 
         public static List<Client> lClient;
         public static List<Produit> lProduit;
         public static List<LigneProduit> lLigne_Produit;
 
-        public static void add(LigneProduit lP)
-        {
-            lLigne_Produit.Add(lP);
-        }
-
-
-
+        [ForeignKey("id_client")]
+        public int id_client { get; set; }
     }
 }

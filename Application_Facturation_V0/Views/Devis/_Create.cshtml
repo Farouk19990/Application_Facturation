@@ -3,10 +3,10 @@
     List<Client> clients = Devis.lClient;
     List<Produit> produit = Devis.lProduit;
 
-    List<LigneProduit> ligneProduits = Devis.lLigne_Produit;
+    List<LigneProduit> ligneProduit = Devis.lLigne_Produit;
     int x = 1;
-    if(ligneProduits!=null){
-        x=ligneProduits.Count;
+    if(ligneProduit!=null){
+        x = ligneProduit.Count;
     }
    
 
@@ -23,11 +23,13 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
 </style>
+      
 <div class="container d-flex justify-content-center">
     <div class="card px-1 py-4">
         <div class="card-body">
-            <form asp-action="Create">
+            <form>
                  <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group" style="display:flex;align-items:center;justify-content:center">
@@ -43,7 +45,7 @@ input[type=number] {
                         <div class="form-group" style="display:flex;align-items:center;justify-content:center">
                             <label for="tva" class="form-label col-sm-3">Client  </label>
                             <div class="col-sm-8">
-                                <select asp-for="id_client" class="form-control">
+                                <select id="idClient" class="form-control" required>
                                     <option value="Fournisseur Name" class="form-control">Please select client</option>
                                     @foreach (Client c in clients)
                                     {
@@ -55,59 +57,57 @@ input[type=number] {
 
                         </div>
                     </div>
-                </div>
-                <form>
-                  
-
+                </div>  
+              
                     
-                </form>
-               
                 <table class="table align-items-center mb-0" id="ligneProduitTable">
                     <thead>
                         <tr>
                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Designation</th>
                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Qte</th>
-                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Remise</th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Remise (%)</th>
                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prix Unitaire</th>
-                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">TVA</th>
-                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total</th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">TVA (%)</th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total TTC</th>
                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
 
                             <th class="text-secondary opacity-7"></th>
                         </tr>
                     </thead>
-                    <tbody>
-                     
+                    <tbody> 
+                        
                             <tr id="ligneProduit">
                                 <td>
                                     <div class="d-flex px-2 py-1">
                                         
                                         <div class="d-flex flex-column justify-content-center">
 
-                                        <select id="productSelect" onchange="updateInput(this)" class="form-control">
+                                        <select id="productSelect" asp-for="date_devis" name="select" onchange="updateInput(this)" class="form-control">
                                             <option class="form-control">Please select product</option>
                                             @foreach (Produit p in produit)
                                             {
-                                                <option value="@p.produit_id" data-price="@p.prix_unitaire_ht">@p.designation</option>
+                                                <option value="@p.produit_id" name="prod_id" data-price="@p.prix_unitaire_ht">@p.designation</option>
                                             }
                                         </select>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="align-middle text-center text-sm">
-                                <input type="number" placeholder="QTE" id="qteInput" onchange="updateQte(this)" class="form-control">
-
+                                    
+                                <input type="number" name="qte" placeholder="QTE" id="qteInput" onchange="calcLigne(this)" class="form-control">
+                                
+                                                                   
                                 </td>
                                 <td class="align-middle text-center text-sm">
-                                <input type="number" placeholder="Remise" id="remiseInput" onchange="updateRemise(this)" class="form-control">
+                                <input type="number" name="remise" placeholder="Remise" id="remiseInput" onchange="calcLigne(this)" class="form-control">
 
                                 </td>
                                 <td class="align-middle text-center">
-                                <input type="number" id="productPriceInput" onchange="updateRemise(this)" class="form-control">
+                                <input type="number" name="prixUnitaire" id="productPriceInput" onchange="calcLigne(this)" class="form-control">
                                     
                                 </td>
                             <td class="align-middle text-center">
-                                <input type="number" placeholder="TVA" id="TVAInput" onchange="updateTVA(this)" class="form-control">
+                                <input type="number" name="TVA" placeholder="TVA" id="TVAInput" onchange="calcLigne(this)" class="form-control">
                             </td>
                                 <td class="align-middle text-center">
                                 <input type="number" placeholder="Total" id="totalInput" class="form-control">
@@ -129,35 +129,24 @@ input[type=number] {
 
                                 </td>
                             </tr>
-                            
-                           
-                            <!--
-                            <tr>
-                                <td class="align-middle text-center" colspan="5"></td>
-                                <td class="align-middle text-center">Total HT</td>
-                                <td class="align-middle text-center">
-                                    <input type="number" placeholder="Total HT" class="form-control">
-                                </td>
-                            </tr>
-                        <tr>
-                            <td class="align-middle text-center" colspan="5"></td>
-                            <td class="align-middle text-center">Total TVA</td>
-                            <td class="align-middle text-center">
-                                <div style="width:100px"> <input type="number" placeholder="Total TVA" class="form-control"></div>
-                            </td>
-                        </tr>
-                        -->
+                        
+                          
                     </tbody>
                 </table>
-                <button onclick="add()" class="btn" style="margin-top:8px;height:40px">
-                    <img src="../assets/flaticon/plus.png">
-                </button>
+               
+                <input onclick="add()" value="Ajoute Ligne" class="btn" style="margin-left:15px;">
+                    
+                      
                 <div class="row" >
                     <div class="col-sm-12">
                         <div class="form-group" style="margin-top:10px;margin-left:400px;display:flex;align-items:center;justify-content:center">
                             <label for="tva" style="margin-top:5px" class="form-label col-sm-3">Total HT  </label>
                             <div class="col-sm-4">
-                                <input type="number" placeholder="Total HT" id="totalHT" class="form-control" readonly>
+                                <div class="input-group">
+                                <input asp-for="total_ht" type="number" placeholder="Total HT" id="totalHT" class="form-control" readonly>
+                                    <span class="input-group-text">DT</span>
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -167,8 +156,12 @@ input[type=number] {
                         <div class="form-group" style="margin-left:400px;display:flex;align-items:center;justify-content:center">
                             <label for="tva" style="margin-top:5px" class="form-label col-sm-3">Total Remise</label>
                             <div class="col-sm-4">
-                                <input type="number" placeholder="Total Remise" id="totalRemise" class="form-control" readonly>
+                                <div class="input-group">
+                                    <input asp-for="total_remise" type="number" placeholder="Total Remise" id="totalRemise" class="form-control" readonly>
+                                    <span class="input-group-text">DT</span>
+                                </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -176,28 +169,43 @@ input[type=number] {
                     <div class="col-sm-12">
                         <div class="form-group" style="margin-left:400px;display:flex;align-items:center;justify-content:center">
                             <label for="tva" style="margin-top:5px" class="form-label col-sm-3">Total HT Avant Remise</label>
-                            <div class="col-sm-4">
-                                <input type="number" placeholder="Total HT Avant Remise" id="totalHtAvR" class="form-control" readonly>
+                            
+                             <div class="col-sm-4">
+                                <div class="input-group">
+                                                                    <input asp-for="total_ht_avant_remis" type="number" placeholder="Total HT Avant Remise" id="totalHtAvR" class="form-control" readonly>
+
+
+                                    <span class="input-group-text">DT</span>
+
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-12">
-                        <div class="form-group" style="margin-left:400px;display:flex;align-items:center;justify-content:center">
-                            <label for="tva" style="margin-top:5px" class="form-label col-sm-3">Total TVA</label>
-                            <div class="col-sm-4">
-                                <input type="number" placeholder="Total TVA" id="totalTVA" class="form-control" readonly>
+                    <div class="col-sm-11">
+                        <div class="form-group" style="margin-left:470px;display:flex;align-items:center;justify-content:center">
+                            <label for="tva" style="margin-top:5px" class="form-label col-sm-4">Total TVA</label>
+                            
+                            <div class="input-group">
+                                 <input asp-for="total_tva" type="number" placeholder="Total TVA" id="totalTVA" class="form-control" readonly>
+
+                                <span class="input-group-text">DT</span>
+
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-12">
-                        <div class="form-group" style="margin-left:400px;display:flex;align-items:center;justify-content:center">
-                            <label for="tva" style="margin-top:5px" class="form-label col-sm-3">Total TTC</label>
-                            <div class="col-sm-4">
-                                <input type="number" placeholder="Total TTC" id="totalTTC" class="form-control" readonly>
+                    <div class="col-sm-11">
+                        <div class="form-group" style="margin-left:470px;display:flex;align-items:center;justify-content:center">
+                            <label for="tva" style="margin-top:5px" class="form-label col-sm-4">Total TTC</label>
+                           
+                            <div class="input-group">
+                                <input asp-for="total_ttc" type="number" placeholder="Total TTC" id="totalTTC" class="form-control" readonly>
+
+                                <span class="input-group-text">DT</span>
+
                             </div>
                         </div>
                     </div>
@@ -235,113 +243,194 @@ input[type=number] {
                         </div>
                     </div>
                 </div>-->
-                  
-             
-                <button type="submit" class="btn btn-info" asp-action="Create"><i class="bi bi-plus-circle"></i> Add </button>
+
+
+            <button type="submit" class="btn btn-info" onclick="ajoutDB()" ><i class="bi bi-plus-circle"></i> Add </button>
+                        
                <button class="btn btn-primary btn-block confirm-button">Confirm</button>
+                
             </form>
         </div>
     </div>
 </div>
 
 <script>
-    function DevisInputUpdate(){
+    function ajoutDB() {
+        var table = document.getElementById("ligneProduitTable");
+        var productId = document.querySelectorAll('#productSelect');
+        var ligneLP = [];
+        var listPID = [];
 
-        var totalInputs = document.querySelectorAll('#totalInput');
-        var totalHT=0;
-        totalInputs.forEach(function (input) {
-            totalHT += parseFloat(input.value);
+        //DEVIS INPUTS 
+        var clientId = document.querySelectorAll('#idClient');
+        var clientIds = [];
+        clientId.forEach(function (input) {
+            clientIds.push(input.value);
         });
-        document.getElementById('totalHT').value = totalHT;
+        var devis = {};
+        console.log("clientid ", clientIds);
+        var totalRe = document.getElementById('totalRemise');
+        var totalHTA = document.getElementById('totalHtAvR');
+        var totalTTC = document.getElementById('totalTTC')
+        var totalTVA = document.getElementById('totalTVA');
+        var totalHT = document.getElementById('totalHT');
+
+        var devisObj = { "client_id": clientIds[0], "totalHT": totalHT.value, "totalRemise": totalRe.value, "totalHTA": totalHTA.value, "totalTTC": totalTTC.value, "totalTVA": totalTVA.value };
+        console.log("obj ", devisObj);
+        ligneLP.push(devisObj)
+        //END DEVIS
+        productId.forEach(function (input) {
+            listPID.push(input.value);
+        });
+      
+        var rows = table.getElementsByTagName("tr");
+        console.log("prod  ",listPID);
+
+        console.log("rows  ",rows.length);
+        
+        var pid = 0;
+
+        for (var i = 0; i < rows.length; i++) {
+            var inputs = rows[i].getElementsByTagName("input");
+            var rowObj = {};
+            for (var j = 0; j < inputs.length; j++) {
+                var inputValue = inputs[j].value;
+                var inputName = inputs[j].getAttribute("name");
+                rowObj[inputName] = inputValue;
+                var x=1;
+            }
+            if(x==1){
+            rowObj["ProdID"] = listPID[pid];
+            ligneLP.push(rowObj);
+            pid++;
+            }
+            
+        }
+        console.log("list LP: " + JSON.stringify(ligneLP));
+        console.log("here");
+        if(ligneLP.length >0){
+        console.log("THEN here");
+
+         $.ajax({
+            type: 'POST',
+                url: '@Url.Action("ReceiveData", "Devis")',
+            data: JSON.stringify(ligneLP),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+                async: false,
+                cache: false, 
+            success: function (response) {
+                if (response) {
+                       
+                    console.log("Data sent successfully");
+                        window.location.href = '@Url.Action("Index", "Devis")';
+                      
+                } else {
+                    console.log("Error sending data");
+                }
+            },
+            error: function () {
+                 console.log("Error sending data");
+            }
+        });
+
+        console.log("BYEE");
+
+        }
     }
 
+    //####### NEW ########
     function updateInput(selectElement) {
         var selectedOption = selectElement.options[selectElement.selectedIndex];
 
-        var row = selectElement.closest('tr'); 
-        var productPrice = selectedOption.getAttribute('data-price');    
+        var row = selectElement.closest('tr');
+        var productPrice = selectedOption.getAttribute('data-price');
         row.querySelector('#productPriceInput').value = productPrice;
 
         row.querySelector('#qteInput').value = 1;
+        row.querySelector('#remiseInput').value = 0;
+        row.querySelector('#TVAInput').value = 0;
 
         var totalInput = row.querySelector('#totalInput');
         totalInput.value = productPrice;
-        DevisInputUpdate();
-
-
-        /*
-        var productSelect = document.getElementById('productSelect');
-        var selectedOption = productSelect.options[productSelect.selectedIndex];
-        var productPrice = selectedOption.getAttribute('data-price');
-        
-        document.getElementById('productPriceInput').value = productPrice;
-        document.getElementById('qteInput').value = 1;
-            <DEVIS TOTAL>
-        document.getElementById('totalInput').value = productPrice;
-        document.getElementById('totalHT').value = productPrice;
-        document.getElementById('totalTTC').value = productPrice;
-        document.getElementById('totalRemise').value = 0;
-        document.getElementById('totalTVA').value = 0;
-        document.getElementById('totalHtAvR').value = productPrice;*/
+        calcLigne(selectElement);
     }
-    function qteF(selectElement) {
+    //####### NEW ########
+    function calcLigne(selectElement) {
         var row = selectElement.closest('tr');
 
-        var prix = parseFloat( row.querySelector('#productPriceInput').value);
+        var prix = parseFloat(row.querySelector('#productPriceInput').value);
         var qte = parseFloat(row.querySelector('#qteInput').value);
 
-        row.querySelector('#totalInput').value = prix * qte;
-        //document.getElementById('totalHT').value = prix * qte;
+        var remise = row.querySelector('#remiseInput').value || 0;
+        var tva = row.querySelector('#TVAInput').value || 0;
+
+        row.querySelector('#totalInput').value = prix * qte * (1 - remise / 100) * (1 + tva / 100);
+
+        console.log("TOTAL : ", total);
+        //document.getElementById('totalTTC').value=total;
+        calcFacture();
+    }
+
+    function calcFacture() {
+        const rows = document.querySelectorAll('#ligneProduitTable tbody tr');
+        let totalTTC = 0;
+        let totalTVA = 0;
+        let totalRemise = 0;
+        let totalHT = 0;
+
+        rows.forEach(row => {
+            const rowTotalInput = row.querySelector('#totalInput');
+            var prix = parseFloat(row.querySelector('#productPriceInput').value);
+            var qte = parseFloat(row.querySelector('#qteInput').value);
+            var remise = row.querySelector('#remiseInput').value || 0;
+            var tva = row.querySelector('#TVAInput').value || 0;
+            if (rowTotalInput) {
+                totalTTC += parseFloat(rowTotalInput.value);
+
+                totalRemise += (prix * qte) * parseFloat(row.querySelector('#remiseInput').value) / 100;
+                if (tva != 0) {
+                    totalHT += ((prix * qte) * (1 - remise / 100));
+                }
+                if (tva == 0) {
+                    totalHT += ((prix * qte) * (1 - remise / 100));
+                }
+
+                if (remise != 0) {
+                    totalTVA += ((prix * qte) * (1 - remise / 100)) * parseFloat(row.querySelector('#TVAInput').value) / 100;
+                } else {
+                    totalTVA += (prix * qte) * parseFloat(row.querySelector('#TVAInput').value) / 100;
+
+                }
+            }
+        });
+        console.log("totalHT  ", totalHT, " totalRemise ", totalRemise, "totalTva ", totalTVA, "totalTTC ", totalTTC);
+
+
+        document.getElementById('totalHT').value = totalHT;
+        document.getElementById('totalTVA').value = totalTVA;
+        document.getElementById('totalRemise').value = totalRemise;
+        document.getElementById('totalTTC').value = totalTTC;
+        document.getElementById('totalHtAvR').value = totalTTC + totalRemise;
 
     }
 
-    function updateQte(selectElement) {
-        var row = selectElement.closest('tr'); 
-        row.querySelector('#remiseInput').value = 0;
-        qteF(selectElement);
+    function deleteRow(selected) {
+        var row = selected.closest('tr');
+        row.parentNode.removeChild(row);
+        calcFacture()
     }
-    function updateRemise(selectElement) {
-        var row = selectElement.closest('tr');
 
-        qteF(selectElement);
-        var total = row.querySelector('#totalInput').value;
-        var remise = row.querySelector('#remiseInput').value;
-        var x=100-remise;
-        /*
-        document.getElementById('totalHtAvR').value=total;
-        var r = document.getElementById('totalRemise').value =total-( (total * x) / 100);
-
-        document.getElementById('totalHT').value = (total * x) / 100;
-        */
-        row.querySelector('#totalInput').value = (total * x)/100;
-    }
-    function updateTVA(selectElement) {
-        var row = selectElement.closest('tr');
-
-        updateRemise(selectElement);
-        var total = row.querySelector('#totalInput').value;
-        var tva = row.querySelector('#TVAInput').value;
-        var x = 100 - tva;
-        row.querySelector('#totalInput').value = total * ((tva / 100) + 1);
-        /*
-        document.getElementById('totalTVA').value = total - ((total * x) / 100);
-       
-        document.getElementById('totalTTC').value = total*((tva/100)+1)*/
-
-    }
-    function clearInputDevis(){
-        row.querySelector('#remiseInput').value = 0;
-        document.getElementById('totalTVA').value =0;
-        document.getElementById('totalInput').value = 0;
-        document.getElementById('totalTTC').value =0;
-    }
-    function add(){
+    function add() {
         var newRow = $("#ligneProduitTable tbody tr").first().clone();
         newRow.find("input").val(""); // Clear input values
         newRow.appendTo("#ligneProduitTable tbody");
     }
-    function deleteRow(selected){
-        var row = selected.closest('tr');
-        row.parentNode.removeChild(row);
-    }
+
+
+ 
+
+        
+        
+
 </script>

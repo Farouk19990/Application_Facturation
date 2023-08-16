@@ -156,3 +156,7 @@ C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0
 C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\obj\Debug\net5.0\Razor\Views\Devis\Index.cshtml.g.cs
 C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\obj\Debug\net5.0\Razor\Views\Devis\_Create.cshtml.g.cs
 C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\obj\Debug\net5.0\Razor\Views\Create.cshtml.g.cs
+C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\obj\Debug\net5.0\Razor\Views\Facture\Index.cshtml.g.cs
+C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\obj\Debug\net5.0\Razor\Views\Facture\_Create.cshtml.g.cs
+C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\obj\Debug\net5.0\Razor\Views\BonLivraison\Index.cshtml.g.cs
+C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\obj\Debug\net5.0\Razor\Views\BonLivraison\_Create.cshtml.g.cs
