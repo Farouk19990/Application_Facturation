@@ -3,69 +3,146 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Modifier Fournisseur</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body" id="mod">
 
-                <div class="container mt-5 mb-5 d-flex justify-content-center">
+                <div class="container mt-2 mb-2  justify-content-center">
                     <div class="card px-1 py-4">
                         <div class="card-body">
 
                             <form asp-action="Edit">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <!-- <label for="name">Name</label> --> <input asp-for="nom" class="form-control" type="text" placeholder="Nom">
+                                        <div class="form-group" style="display:flex;align-items:center;justify-content:center;">
+                                            <div class="input-group">
+
+                                                <label for="tva" class="form-label col-sm-3">Nom </label>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <input asp-for="nom" class="form-control" type="text" placeholder="Nom" required>
+                                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <!-- <label for="name">Name</label> --> <input asp-for="matricule_fiscale" class="form-control" type="text" placeholder="Matricule Fiscale">
+                                        <div class="form-group" style="display:flex;align-items:center;justify-content:center;">
+                                            <div class="input-group">
+                                                <label for="address" class="form-label col-sm-3">Address  </label>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <input asp-for="address" class="form-control" type="text" placeholder="Address" required>
+
+                                                        <span class="input-group-text"><i class="fas fa-map-marked-alt"></i></span>
+                                                    </div>
+
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <div class="input-group"> <input asp-for="identifiant_unique" class="form-control" type="text" placeholder="Identifiant unique"> </div>
+                                        <div class="form-group" style="display:flex;align-items:center;justify-content:center;">
+                                            <div class="input-group">
+                                                <label for="mobile" class="form-label col-sm-3">Mobile  </label>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <input asp-for="telephone" class="form-control" type="number" placeholder="Mobile" required>
+
+                                                        <span class="input-group-text"> <i class="fas fa-mobile-alt"></i></span>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <div class="input-group"> <input asp-for="address" class="form-control" type="text" placeholder="Address"> </div>
+                                        <div class="form-group" style="display:flex;align-items:center;justify-content:center;">
+                                            <div class="input-group">
+                                                <label for="mobile" class="form-label col-sm-3">Mobile  </label>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <input asp-for="ville" class="form-control" type="text" placeholder="Ville" required>
+
+                                                        <span class="input-group-text"> <img src="~/assets/flaticon/city.png" width="18px"></span>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <div class="input-group"> <input asp-for="telephone" class="form-control" type="text" placeholder="Mobile"> </div>
+                                        <div class="form-group" style="display:flex;align-items:center;justify-content:center;">
+                                            <div class="input-group">
+                                                <label for="mobile" class="form-label col-sm-3">Code Postal  </label>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <input asp-for="code_postal" class="form-control" type="text" placeholder="Code Postal" required>
+                                                        <span class="input-group-text"> <img src="~/assets/flaticon/mailbox.png" width="18px"></span>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <div class="input-group"> <input asp-for="code_postal" class="form-control" type="text" placeholder="Code Postal"> </div>
+                                        <div class="form-group" style="display:flex;align-items:center;justify-content:center;">
+                                            <div class="input-group">
+                                                <label for="mat" class="form-label col-sm-4 mt-2">Matricule Fiscale  </label>
+                                                <div class="col-sm-7">
+                                                    <div class="input-group">
+                                                        <input asp-for="matricule_fiscale" class="form-control" type="text" placeholder="Matricule Fiscale" required>
+
+                                                        <span class="input-group-text">  <img src="~/assets/flaticon/tax.png" width="18px"></span>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <div class="input-group"> <input asp-for="ville" class="form-control" type="text" placeholder="Ville"> </div>
+                                        <div class="form-group" style="display:flex;align-items:center;justify-content:center;">
+                                            <div class="input-group">
+                                                <label for="idU" class="form-label col-sm-4 mt-2">Identifiant Unique  </label>
+                                                <div class="col-sm-7">
+                                                    <div class="input-group">
+
+                                                        <input asp-for="identifiant_unique" class="form-control" type="text" placeholder="Identifiant Unique" required>
+                                                        <span class="input-group-text"> <i class="fas fa-id-card-alt"></i></span>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-info" asp-route-id=@Model.fournisseur_id asp-action="Edit"><i class="bi bi-plus-circle"></i> Add </button>
-                                <div class=" d-flex flex-column text-center px-5 mt-3 mb-3"> <small class="agree-text">By Booking this appointment you agree to the</small> <a href="#" class="terms">Terms & Conditions</a> </div> <button class="btn btn-primary btn-block confirm-button">Confirm</button>
+                                <button type="submit" class="btn btn-info" asp-route-id=@Model.fournisseur_id asp-action="Edit"><i class="bi bi-plus-circle"></i> Confirmer </button>
+                                <button type="button" class="btn " data-bs-dismiss="modal" aria-label="Close" style="margin-left:10px;">
+                                    Annuler
+                                </button>
                             </form>
                             
                                 

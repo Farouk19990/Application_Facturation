@@ -22,6 +22,7 @@ namespace Application_Facturation_V0.Controllers
             _c_service = c_service;
         }
  
+
         // GET: ClientController
         public ActionResult Index()
         {

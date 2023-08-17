@@ -41,8 +41,9 @@
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content" style="width:900px">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                    <h5 class="modal-title" id="exampleModalLabel">Ajouter Bon Livraison</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="margin-right:10px;margin-bottom:10px">
+                                        <img src="~/assets/flaticon/close-0.png" width="30px">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
@@ -50,10 +51,7 @@
 
                                     @Html.Partial("_Create",new BonLivraison())
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn bg-gradient-primary">Save changes</button>
-                                </div>
+                              
                             </div>
                         </div>
                     </div>
@@ -86,7 +84,8 @@
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div>
-                                                    <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
+                                                    <img src="../assets/flaticon/BL_0.png" style="margin-right:20px;" alt="user1">
+
                                                 </div>
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="mb-0 text-sm">BL#@item.bonLivraison_id</h6>

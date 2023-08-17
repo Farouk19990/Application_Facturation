@@ -27,33 +27,36 @@
 
 </style>
 
-<div class="container d-flex justify-content-center">
+<div class="container justify-content-center">
     <div class="card px-1 py-4">
         <div class="card-body">
             <form>
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-6">
                         <div class="form-group" style="display:flex;align-items:center;justify-content:center">
                             <label for="tva" class="form-label col-sm-3">Devis Date  </label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-7">
                                 <input asp-for="date_bL" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="form-control" type="date">
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-6">
                         <div class="form-group" style="display:flex;align-items:center;justify-content:center">
                             <label for="tva" class="form-label col-sm-3">Client  </label>
-                            <div class="col-sm-8">
-                                <select id="idClient" class="form-control" required>
-                                    <option value="Fournisseur Name" class="form-control">Please select client</option>
-                                    @foreach (Client c in clients)
-                                    {
-                                        <option value="@c.id_client">@c.nom_client @c.prenom_client</option>
+                            <div class="col-sm-7">
+                                <div class="input-group">
+                                    <select id="idClient" class="form-control" required>
+                                        <option value="Fournisseur Name" class="form-control">Please select client</option>
+                                        @foreach (Client c in clients)
+                                        {
+                                            <option value="@c.id_client">@c.nom_client @c.prenom_client</option>
 
-                                    }
-                                </select>
+                                        }
+                                    </select>
+                                    <span class="input-group-text">  <img src="~/assets/flaticon/client_2.png" width="18px"></span>
+
+                                </div>
+
                             </div>
 
                         </div>
@@ -247,9 +250,11 @@
                 </div>-->
 
 
-                <button type="submit" class="btn btn-info" onclick="ajoutDB()"><i class="bi bi-plus-circle"></i> Add </button>
+                <button type="submit" class="btn btn-info" onclick="ajoutDB()" style="margin-left:500px; margin-top:20px"><i class="bi bi-plus-circle"></i> Ajouter </button>
 
-                <button class="btn btn-primary btn-block confirm-button">Confirm</button>
+                <button type="button" class="btn " data-bs-dismiss="modal" aria-label="Close" style="margin-left:10px; margin-top:20px">
+                    Annuler
+                </button>
 
             </form>
         </div>

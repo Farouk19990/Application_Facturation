@@ -1,85 +1,130 @@
 ﻿@model Produit
 @{
     List<Fournisseur> fournisseur = Produit.lf;
-    Fournisseur f1;// Cast the list
 }
-<div class="container mt-5 mb-5 d-flex justify-content-center">
+<div class="container mt-2 mb-2 justify-content-center">
     <div class="card px-1 py-4">
         <div class="card-body">
             <form asp-action="Create">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <!-- <label for="name">Name</label> --> <input asp-for="designation" class="form-control" type="text" placeholder="Designation">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <!-- <label for="name">Name</label> --> <input asp-for="unite" class="form-control" type="text" placeholder="Unite">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <div class="input-group" style="display:flex;align-items:center;justify-content:center">
-                                
-                                <label for="Prix" class="form-label col-sm-3">Prix Unitaire</label>
-                                <div class="col-sm-8">
-                                    <input asp-for="prix_unitaire_ht" class="form-control" type="number" placeholder="Prix Unitaire">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="form-group">
 
-                            <div class="input-group" style="display:flex;align-items:center;justify-content:center"> 
-                                <label for="PrixHt" class="form-label col-sm-3">Prix HT  </label>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group" style="display:flex;align-items:center;justify-content:center;">
+                            <div class="input-group">
+                                <label for="designation" class="form-label col-sm-3">Designation  </label>
                                 <div class="col-sm-8">
-                                    <input asp-for="prix_ht" class="form-control" type="number" placeholder="Prix HT">
+                                    <div class="input-group">
+                                        <input asp-for="designation" class="form-control" type="text" placeholder="Designation" required>
+
+                                        <span class="input-group-text">  <img src="~/assets/flaticon/designation.png" width="18px"></span>
+
                                     </div>
+
+                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="form-group">
-                            <div class="input-group" style="display:flex;align-items:center;justify-content:center">
-                                <label for="tva" class="form-label col-sm-3">Tva  </label>
+                        <div class="form-group" style="display:flex;align-items:center;justify-content:center;">
+                            <div class="input-group">
+                                <label for="Unite" class="form-label col-sm-3">Unite  </label>
                                 <div class="col-sm-8">
-                                <input asp-for="tva" class="form-control" type="number" placeholder="TVA"> 
+                                    <div class="input-group">
+                                        <input asp-for="unite" class="form-control" type="text" placeholder="Unite" required>
+
+                                        <span class="input-group-text">  <img src="~/assets/flaticon/unit.png" width="18px"></span>
+
+                                    </div>
+
                                 </div>
+
                             </div>
                         </div>
                     </div>
-                </div>
-                  
+                </div>              
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group" style="display:flex;align-items:center;justify-content:center">
-                            <label for="tva" class="form-label col-sm-3">Tva  </label>
-                            <div class="col-sm-8">
-                            <select asp-for="fournisseur_id" class="form-control" >
-                                <option value="Fournisseur Name" class="form-control">Please select</option>
-                                @foreach (Fournisseur f in fournisseur)
-                                {
-                                    <option value="@f.fournisseur_id">@f.nom</option>
-                                    
-                                }
-                            </select>
+                            <div class="input-group">
+                                
+                                <label for="Prix" class="form-label col-sm-3">Prix Unitaire</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <input asp-for="prix_unitaire_ht" class="form-control" type="number" placeholder="Prix Unitaire">
+                                        <span class="input-group-text">  <img src="~/assets/flaticon/money.png" width="18px"></span>
+                                    </div>
+                                </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-info" asp-action="Create"><i class="bi bi-plus-circle"></i> Add </button>
-                <div class=" d-flex flex-column text-center px-5 mt-3 mb-3"> <small class="agree-text">By Booking this appointment you agree to the</small> <a href="#" class="terms">Terms & Conditions</a> </div> <button class="btn btn-primary btn-block confirm-button">Confirm</button>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group" style="display:flex;align-items:center;justify-content:center">
+                            <div class="input-group">
+
+                                <label for="PrixHt" class="form-label col-sm-3">Prix HT  </label>
+
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <input asp-for="prix_ht" class="form-control" type="number" placeholder="Prix HT" required>
+                                        <span class="input-group-text">  <img src="~/assets/flaticon/money.png" width="18px"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group" style="display:flex;align-items:center;justify-content:center">
+                            <div class="input-group">
+
+                                <label for="tva" class="form-label col-sm-3">Tva  </label>
+
+
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <input asp-for="tva" class="form-control" type="number" placeholder="TVA" required>
+                                        <span class="input-group-text">  <img src="~/assets/flaticon/tax.png" width="18px"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group" style="display:flex;align-items:center;justify-content:center">
+                            <div class="input-group">
+                                <label for="tva" class="form-label col-sm-3 mt-2">Fournisseur  </label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <select asp-for="fournisseur_id" class="form-control">
+                                            <option value="Fournisseur Name" class="form-control">Please select</option>
+                                            @foreach (Fournisseur f in fournisseur)
+                                            {
+                                                <option value="@f.fournisseur_id">@f.nom</option>
+
+                                            }
+                                        </select>
+                                        <span class="input-group-text">  <img src="~/assets/flaticon/supplier_2.png" width="18px"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <button type="submit" class="btn btn-info" asp-action="Create" style="margin-left:130px;margin-top:5px"><i class="bi bi-plus-circle"></i> Ajouter </button>
+                <button type="button" class="btn " data-bs-dismiss="modal" aria-label="Close" style="margin-left:10px;">
+                    Annuler
+                </button>
             </form>
         </div>
     </div>
