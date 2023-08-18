@@ -89,7 +89,7 @@
                                             <option class="form-control">Please select product</option>
                                             @foreach (Produit p in produit)
                                             {
-                                                <option value="@p.produit_id" name="prod_id" data-price="@p.prix_unitaire_ht">@p.designation</option>
+                                                <option value="@p.produit_id" name="prod_id" data-tva="@p.tva" data-price="@p.prix_unitaire_ht">@p.designation</option>
                                             }
                                         </select>
                                     </div>
@@ -377,11 +377,13 @@
 
         var row = selectElement.closest('tr');
         var productPrice = selectedOption.getAttribute('data-price');
+        var tva = selectedOption.getAttribute('data-tva');
+
         row.querySelector('#productPriceInput').value = productPrice;
 
         row.querySelector('#qteInput').value = 1;
         row.querySelector('#remiseInput').value = 0;
-        row.querySelector('#TVAInput').value = 0;
+        row.querySelector('#TVAInput').value = tva;
 
         var totalInput = row.querySelector('#totalInput');
         totalInput.value = productPrice;

@@ -165,5 +165,26 @@ namespace Application_Facturation_V0.Controllers
             }
             return Json(new { redirectToUrl = @Url.Action("Index", "BonLivraison") });
         }
+
+
+        [HttpGet]
+        public ActionResult LigneBL(int id)
+        {
+            List<LigneBL> ligneBonLivraisons = new List<LigneBL>();
+            var bonLiv = _bl_service.GetById(id);
+            var listBL = _Lbl_service.GetAll();
+            foreach (LigneBL lBl in listBL)
+            {
+                if (lBl.bonLivraison_id == id)
+                {
+                    lBl.produitBL = _p_service.GetById(lBl.produit_id);
+                    ligneBonLivraisons.Add(lBl);
+                }
+            }
+            ViewData["bonL"] = bonLiv;
+            ViewData["ligneBLs"] = ligneBonLivraisons;
+
+            return View(ligneBonLivraisons);
+        }
     }
 }

@@ -113,7 +113,19 @@
                                         <td class="align-middle text-center">
                                             <span class="text-secondary text-xs font-weight-bold">@item.bL_client.nom_client</span>
                                         </td>
-                                        <td class="align-middle">
+                                        <td class="align-middle text-center">
+
+                                            <form action="LigneBL" style="display:inline;">
+                                                <button type="submit" class="btn btn-info" asp-action="LigneBL" asp-route-id="@item.bonLivraison_id">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                            </form>
+
+                                            <form action="Delete" style="display:inline;">
+                                                <button type="submit" class="btn bg-gradient-danger" asp-action="Delete" asp-route-id="@item.bonLivraison_id">
+                                                    <i class="fas fa-trash"> ### </i>
+                                                </button>
+                                            </form>
                                             <!--
                                                                                         <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="@("#editModal-" + item.id_client)" data-url="@Url.Action($"EditPartial/{item.id_client}")">
                                                Edit

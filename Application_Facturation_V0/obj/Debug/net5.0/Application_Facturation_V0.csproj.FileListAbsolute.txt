@@ -168,3 +168,6 @@ C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0
 C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\bin\Debug\net5.0\Microsoft.Extensions.Identity.Core.dll
 C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\bin\Debug\net5.0\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\obj\Debug\net5.0\Razor\Views\Account\Login.cshtml.g.cs
+C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\obj\Debug\net5.0\Razor\Views\Devis\LigneP.cshtml.g.cs
+C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\obj\Debug\net5.0\Razor\Views\Facture\LigneF.cshtml.g.cs
+C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\obj\Debug\net5.0\Razor\Views\BonLivraison\LigneBL.cshtml.g.cs

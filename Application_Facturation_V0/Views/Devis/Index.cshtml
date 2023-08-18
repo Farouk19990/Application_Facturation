@@ -62,12 +62,12 @@
                                 <tr>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Devis</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Total HT</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total HT avant Remise</th>
+                                    
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Remise</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Total TVA</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Total TTC</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Client</th>
-
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
 
 
 
@@ -95,9 +95,7 @@
 
                                         </td>
                                      
-                                        <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold">@item.total_ht_avant_remis</span>
-                                        </td>
+                                       
                                         <td class="align-middle text-center">
                                             <span class="text-secondary text-xs font-weight-bold">@item.total_remise</span>
                                         </td>
@@ -110,18 +108,19 @@
                                        <td class="align-middle text-center">
                                             <span class="text-secondary text-xs font-weight-bold">@item.Devis_client.nom_client</span>
                                         </td>
-                                       <td class="align-middle">
-                                            <!--
-                                                                                        <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="@("#editModal-"+item.id_client)" data-url="@Url.Action($"EditPartial/{item.id_client}")">
-                                               Edit
+                                       <td class="align-middle text-center">
+                                            <form action="LigneP" style="display:inline;">
+                                                <button type="submit" class="btn btn-info" asp-action="LigneP" asp-route-id="@item.devis_id">
+                                                <i class="fas fa-eye"></i>
                                             </button>
+                                            </form>
                                             <form action="Delete" style="display:inline;">
                                             <button type="submit" class="btn bg-gradient-danger" asp-action="Delete" asp-route-id="@item.id_client">
-                                                Delete
+                                                 <i class="fas fa-trash"> ### </i>
                                             </button></form>
+
                                            
-                                            await Html.PartialAsync("EditPartial",item) -->
-                                            <!-- Edit Modal -->
+                                            <!-- await Html.PartialAsync("DetailLigneP") Edit Modal -->
                                         </td>
                                    
                                     </tr>
@@ -142,6 +141,16 @@
     <script src="../assets/js/plugins/chartjs.min.js"></script>
 
     <script>
+        function loadPartialView(devisId) {
+            $.ajax({
+                url: '@Url.Action("DetailLigneP", "Devis")',
+                data: { id: devisId },
+                type: 'GET',
+                success: function (data) {
+                    $('#modal-content-placeholder').html(data);
+                }
+            });
+        }
         // JavaScript/jQuery code to handle "Edit" button click and populate the modal
         $(document).ready(function () {
             $('.edit-btn').click(function () {

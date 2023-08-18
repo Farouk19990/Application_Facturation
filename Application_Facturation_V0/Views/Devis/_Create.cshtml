@@ -90,7 +90,7 @@ input[type=number] {
                                             <option class="form-control">Please select product</option>
                                             @foreach (Produit p in produit)
                                             {
-                                                <option value="@p.produit_id" name="prod_id" data-price="@p.prix_unitaire_ht">@p.designation</option>
+                                                <option value="@p.produit_id" name="prod_id" data-tva="@p.tva" data-price="@p.prix_unitaire_ht">@p.designation</option>
                                             }
                                         </select>
                                         </div>
@@ -319,7 +319,7 @@ input[type=number] {
 
          $.ajax({
             type: 'POST',
-                url: '@Url.Action("ReceiveData", "Devis")',
+            url: '@Url.Action("ReceiveData", "Devis")',
             data: JSON.stringify(ligneLP),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
@@ -329,7 +329,7 @@ input[type=number] {
                 if (response) {
                        
                     console.log("Data sent successfully");
-                        window.location.href = '@Url.Action("Index", "Devis")';
+                    window.location.href = '@Url.Action("Index", "Devis")';
                       
                 } else {
                     console.log("Error sending data");
@@ -351,11 +351,13 @@ input[type=number] {
 
         var row = selectElement.closest('tr');
         var productPrice = selectedOption.getAttribute('data-price');
+        var tva = selectedOption.getAttribute('data-tva');
+
         row.querySelector('#productPriceInput').value = productPrice;
 
         row.querySelector('#qteInput').value = 1;
         row.querySelector('#remiseInput').value = 0;
-        row.querySelector('#TVAInput').value = 0;
+        row.querySelector('#TVAInput').value = tva;
 
         var totalInput = row.querySelector('#totalInput');
         totalInput.value = productPrice;

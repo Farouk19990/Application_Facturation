@@ -29,6 +29,59 @@ namespace Application_Facturation_V0.Controllers
             _c_service = c_service;
             _lp_service = lp_service;
         }
+
+        /* public ActionResult LigneProdPartial(int id)
+         {
+             List<LigneProduit> ligneProduits = new List<LigneProduit>();
+             var data = _lp_service.GetAll();
+             foreach(LigneProduit lp in data)
+             {
+                 if (lp.devis_id == id)
+                 {
+                     ligneProduits.Add(lp);
+                 }
+             }
+             ViewData["ligneP"] = ligneProduits;
+             return PartialView("LigneProdPartial", ligneProduits);
+         }*/
+
+        [HttpGet]
+        public ActionResult DetailLigneP(int id)
+        {
+            List<LigneProduit> ligneProduits = new List<LigneProduit>();
+            var data = _lp_service.GetAll();
+            foreach (LigneProduit lp in data)
+            {
+                if (lp.devis_id == id)
+                {
+                    ligneProduits.Add(lp);
+                }
+            }
+            ViewData["ligneP"] = ligneProduits;
+            return PartialView("DetailLigneP",ligneProduits);
+        }
+
+
+        [HttpGet]
+        public ActionResult LigneP(int id)
+        {
+            List<LigneProduit> ligneProduits = new List<LigneProduit>();
+            var devis = _d_service.GetById(id);
+            var listDevis = _lp_service.GetAll();
+            foreach (LigneProduit lp in listDevis)
+            {
+                if (lp.devis_id == id)
+                {
+                    lp.produit = _p_service.GetById(lp.produit_id);
+                    ligneProduits.Add(lp);
+                }
+            }
+            ViewData["devis"] = devis;
+            ViewData["ligneP"] = ligneProduits;
+            
+            return View(ligneProduits);
+        }
+        
         // GET: DevisController
         [HttpGet]
         public ActionResult Index()

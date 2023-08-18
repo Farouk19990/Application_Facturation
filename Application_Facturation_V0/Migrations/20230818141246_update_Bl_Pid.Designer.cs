@@ -4,14 +4,16 @@ using Application_Facturation_V0.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Application_Facturation_V0.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230818141246_update_Bl_Pid")]
+    partial class update_Bl_Pid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -313,8 +315,8 @@ namespace Application_Facturation_V0.Migrations
                     b.Property<double>("remise")
                         .HasColumnType("float");
 
-                    b.Property<double>("tva")
-                        .HasColumnType("float");
+                    b.Property<int>("tva")
+                        .HasColumnType("int");
 
                     b.HasKey("ligne_bonL_id");
 
@@ -348,8 +350,8 @@ namespace Application_Facturation_V0.Migrations
                     b.Property<double>("remise")
                         .HasColumnType("float");
 
-                    b.Property<double>("tva")
-                        .HasColumnType("float");
+                    b.Property<int>("tva")
+                        .HasColumnType("int");
 
                     b.HasKey("ligne_facture_id");
 

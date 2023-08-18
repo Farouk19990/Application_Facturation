@@ -4,14 +4,16 @@ using Application_Facturation_V0.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Application_Facturation_V0.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230818135142_update_lP_lF")]
+    partial class update_lP_lF
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -301,9 +303,6 @@ namespace Application_Facturation_V0.Migrations
                     b.Property<double>("prix_unitaire_ht")
                         .HasColumnType("float");
 
-                    b.Property<int?>("produitBLproduit_id")
-                        .HasColumnType("int");
-
                     b.Property<int>("produit_id")
                         .HasColumnType("int");
 
@@ -313,12 +312,10 @@ namespace Application_Facturation_V0.Migrations
                     b.Property<double>("remise")
                         .HasColumnType("float");
 
-                    b.Property<double>("tva")
-                        .HasColumnType("float");
+                    b.Property<int>("tva")
+                        .HasColumnType("int");
 
                     b.HasKey("ligne_bonL_id");
-
-                    b.HasIndex("produitBLproduit_id");
 
                     b.ToTable("LignesBL");
                 });
@@ -348,8 +345,8 @@ namespace Application_Facturation_V0.Migrations
                     b.Property<double>("remise")
                         .HasColumnType("float");
 
-                    b.Property<double>("tva")
-                        .HasColumnType("float");
+                    b.Property<int>("tva")
+                        .HasColumnType("int");
 
                     b.HasKey("ligne_facture_id");
 
@@ -602,15 +599,6 @@ namespace Application_Facturation_V0.Migrations
                     b.Navigation("facture_client");
 
                     b.Navigation("facture_produit");
-                });
-
-            modelBuilder.Entity("Application_Facturation_V0.Models.LigneBL", b =>
-                {
-                    b.HasOne("Application_Facturation_V0.Models.Produit", "produitBL")
-                        .WithMany()
-                        .HasForeignKey("produitBLproduit_id");
-
-                    b.Navigation("produitBL");
                 });
 
             modelBuilder.Entity("Application_Facturation_V0.Models.LigneFacture", b =>

@@ -167,5 +167,25 @@ namespace Application_Facturation_V0.Controllers
             }
             return Json(new { redirectToUrl = @Url.Action("Index", "Facture") });
         }
+
+        [HttpGet]
+        public ActionResult LigneF(int id)
+        {
+            List<LigneFacture> ligneFactures = new List<LigneFacture>();
+            var facture = _f_service.GetById(id);
+            var listFactures = _lf_service.GetAll();
+            foreach (LigneFacture lf in listFactures)
+            {
+                if (lf.facture_id == id)
+                {
+                    lf.produit = _p_service.GetById(lf.produit_id);
+                    ligneFactures.Add(lf);
+                }
+            }
+            ViewData["facture"] = facture;
+            ViewData["ligneF"] = ligneFactures;
+
+            return View(ligneFactures);
+        }
     }
 }
