@@ -97,7 +97,18 @@ namespace Application_Facturation_V0.Controllers
         // GET: FactureController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var facture = _f_service.GetById(id);
+            var listFacture = _lf_service.GetAll();
+            foreach (LigneFacture lf in listFacture)
+            {
+                if (lf.facture_id == id)
+                {
+                    _lf_service.Delete(lf);
+                }
+            }
+            _f_service.Delete(facture);
+
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: FactureController/Delete/5

@@ -96,7 +96,18 @@ namespace Application_Facturation_V0.Controllers
         // GET: BonLivraisonController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var bonLiv = _bl_service.GetById(id);
+            var listBL = _Lbl_service.GetAll();
+            foreach (LigneBL lBl in listBL)
+            {
+                if (lBl.bonLivraison_id == id)
+                {
+                    _Lbl_service.Delete(lBl);
+                }
+            }
+            _bl_service.Delete(bonLiv);
+
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: BonLivraisonController/Delete/5

@@ -171,3 +171,6 @@ C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0
 C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\obj\Debug\net5.0\Razor\Views\Devis\LigneP.cshtml.g.cs
 C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\obj\Debug\net5.0\Razor\Views\Facture\LigneF.cshtml.g.cs
 C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\obj\Debug\net5.0\Razor\Views\BonLivraison\LigneBL.cshtml.g.cs
+C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\obj\Debug\net5.0\Razor\Views\Devis\DeletePartial.cshtml.g.cs
+C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\obj\Debug\net5.0\Razor\Views\Facture\DeletePartial.cshtml.g.cs
+C:\Users\DELL\source\repos\Application_Facturation_V0\Application_Facturation_V0\obj\Debug\net5.0\Razor\Views\BonLivraison\DeletePartial.cshtml.g.cs

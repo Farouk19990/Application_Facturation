@@ -121,11 +121,10 @@
                                                 </button>
                                             </form>
 
-                                            <form action="Delete" style="display:inline;">
-                                                <button type="submit" class="btn bg-gradient-danger" asp-action="Delete" asp-route-id="@item.bonLivraison_id">
-                                                    <i class="fas fa-trash"> ### </i>
-                                                </button>
-                                            </form>
+                                            <button type="button" class="btn bg-gradient-danger" data-bs-toggle="modal" data-bs-target="@("#deleteModal-"+item.bonLivraison_id)" data-url="@Url.Action($"DeletePartial/{item.bonLivraison_id}")">
+                                                <i class="fas fa-trash">  </i>
+                                            </button>
+                                            @await Html.PartialAsync("DeletePartial",item)
                                             <!--
                                                                                         <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="@("#editModal-" + item.id_client)" data-url="@Url.Action($"EditPartial/{item.id_client}")">
                                                Edit

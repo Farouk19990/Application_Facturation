@@ -169,7 +169,18 @@ namespace Application_Facturation_V0.Controllers
         // GET: DevisController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var devis = _d_service.GetById(id);
+            var listDevis = _lp_service.GetAll();
+            foreach (LigneProduit lp in listDevis)
+            {
+                if (lp.devis_id == id)
+                {
+                    _lp_service.Delete(lp);
+                }
+            }
+            _d_service.Delete(devis);
+
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: DevisController/Delete/5
@@ -179,6 +190,18 @@ namespace Application_Facturation_V0.Controllers
         {
             try
             {
+                
+                var devis = _d_service.GetById(id);
+                var listDevis = _lp_service.GetAll();
+                foreach (LigneProduit lp in listDevis)
+                {
+                    if (lp.devis_id == id)
+                    {
+                        _lp_service.Delete(lp);
+                    }
+                }
+                _d_service.Delete(devis);
+             
                 return RedirectToAction(nameof(Index));
             }
             catch

@@ -109,15 +109,18 @@
                                             <span class="text-secondary text-xs font-weight-bold">@item.Devis_client.nom_client</span>
                                         </td>
                                        <td class="align-middle text-center">
+                                           
+
                                             <form action="LigneP" style="display:inline;">
                                                 <button type="submit" class="btn btn-info" asp-action="LigneP" asp-route-id="@item.devis_id">
                                                 <i class="fas fa-eye"></i>
                                             </button>
                                             </form>
-                                            <form action="Delete" style="display:inline;">
-                                            <button type="submit" class="btn bg-gradient-danger" asp-action="Delete" asp-route-id="@item.id_client">
-                                                 <i class="fas fa-trash"> ### </i>
-                                            </button></form>
+
+                                            <button type="button" class="btn bg-gradient-danger" data-bs-toggle="modal" data-bs-target="@("#deleteModal-"+item.devis_id)" data-url="@Url.Action($"DeletePartial/{item.devis_id}")">
+                                                <i class="fas fa-trash">  </i>
+                                            </button>
+                                            @await Html.PartialAsync("DeletePartial",item)
 
                                            
                                             <!-- await Html.PartialAsync("DetailLigneP") Edit Modal -->
